@@ -1,5 +1,5 @@
 // =============================================
-//  yes-script.js — Konfeti & Reveal Pesan
+//  yes-script.js — FINAL (Confetti + Reveal + Typewriter)
 // =============================================
 
 const CONFETTI_COLORS = [
@@ -8,21 +8,73 @@ const CONFETTI_COLORS = [
   '#0d3b6e','#c9950a'
 ];
 
+// ===== MESSAGE (TYPEWRITER) =====
+const message = `
+Dear kak Miranda,
+
+Selamat ulang tahun ya kak 🎂✨
+
+Di lautan Grand Line RSIAAZ ini,
+jujur saja, jarang banget aku ketemu orang seperti kakak —
+yang benar-benar baik, soft, sabar,
+dan punya hati yang sangat peka terhadap orang lain.
+
+Aku sangat berterima kasih,
+karena kakak mau mendengarkan aku,
+dengan seluruh cerita hidupku.
+Di saat aku lagi down,
+kakak hadir, mendengarkan tanpa menghakimi,
+dan mengulurkan tangan dengan tulus.
+
+Terima kasih ya kak,
+sudah membantu dengan hati yang benar-benar baik.
+
+Aku doakan kakak selalu dikelilingi
+hal-hal baik dan manis 🌊
+Semoga rencana kakak melanjutkan pendidikan tahun ini
+dimudahkan,
+dan dipertemukan dengan lingkungan yang baik.
+
+— Dari nakama yang bersyukur kenal kakak 💛 (nasrah)
+`;
+
+let i = 0;
+
+// ===== TYPEWRITER EFFECT =====
+function startTyping() {
+  const el = document.getElementById('typedText');
+  if (!el) return;
+
+  function type() {
+    if (i < message.length) {
+      el.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(type, 28);
+    }
+  }
+
+  type();
+}
+
 // ===== INIT STARS =====
 function initStars() {
   const container = document.getElementById('stars');
   if (!container) return;
+
   for (let i = 0; i < 90; i++) {
     const s = document.createElement('div');
     s.classList.add('star');
+
     const size = 1.5 + Math.random() * 3;
+
     s.style.cssText = `
-      width: ${size}px; height: ${size}px;
-      left: ${Math.random() * 100}vw;
-      top: ${Math.random() * 100}vh;
-      animation-delay: ${Math.random() * 4}s;
-      animation-duration: ${2 + Math.random() * 3}s;
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}vw;
+      top:${Math.random()*100}vh;
+      animation-delay:${Math.random()*4}s;
+      animation-duration:${2+Math.random()*3}s;
     `;
+
     container.appendChild(s);
   }
 }
@@ -30,31 +82,33 @@ function initStars() {
 // ===== CONFETTI =====
 function launchConfetti(count = 150) {
   const container = document.getElementById('confettiContainer') || document.body;
+
   for (let i = 0; i < count; i++) {
     setTimeout(() => {
       const c = document.createElement('div');
       c.classList.add('confetti-piece');
 
-      const size   = 8 + Math.random() * 14;
-      const dur    = 2 + Math.random() * 2.5;
-      const dx     = (Math.random() - 0.5) * 200;
+      const size = 8 + Math.random() * 14;
+      const dur  = 2 + Math.random() * 2.5;
+      const dx   = (Math.random() - 0.5) * 200;
       const isCirc = Math.random() > 0.4;
       const isRibb = Math.random() > 0.7;
 
       c.style.cssText = `
-        left: ${10 + Math.random() * 80}vw;
-        top: -5vh;
-        width: ${isRibb ? 4 : size}px;
-        height: ${isRibb ? size * 2.5 : size}px;
-        background: ${CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]};
-        border-radius: ${isCirc ? '50%' : isRibb ? '2px' : '2px'};
-        --dx: ${dx}px;
-        animation-duration: ${dur}s;
-        animation-delay: ${i * 0.012}s;
-        opacity: 1;
+        left:${10 + Math.random()*80}vw;
+        top:-5vh;
+        width:${isRibb ? 4 : size}px;
+        height:${isRibb ? size*2.5 : size}px;
+        background:${CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)]};
+        border-radius:${isCirc ? '50%' : '2px'};
+        --dx:${dx}px;
+        animation-duration:${dur}s;
+        animation-delay:${i*0.012}s;
       `;
+
       container.appendChild(c);
-      setTimeout(() => c.remove(), (dur + 0.2 + i * 0.012) * 1000);
+      setTimeout(() => c.remove(), (dur + 0.3) * 1000);
+
     }, i * 8);
   }
 }
@@ -62,6 +116,7 @@ function launchConfetti(count = 150) {
 // ===== SCROLL REVEAL =====
 function setupReveal() {
   const items = document.querySelectorAll('.reveal-item');
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -77,96 +132,57 @@ function setupReveal() {
   });
 }
 
-// ===== BIRTHDAY MUSIC =====
+// ===== MUSIC =====
 function playBirthdayMusic() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // "Happy Birthday" simplified melody
-    const melody = [
-      [261.63, 0.25], [261.63, 0.25], [293.66, 0.5], [261.63, 0.5],
-      [349.23, 0.5],  [329.63, 1.0],
-      [261.63, 0.25], [261.63, 0.25], [293.66, 0.5], [261.63, 0.5],
-      [392.00, 0.5],  [349.23, 1.0],
-      [261.63, 0.25], [261.63, 0.25], [523.25, 0.5], [440.00, 0.5],
-      [349.23, 0.5],  [329.63, 0.5],  [293.66, 1.0],
-      [466.16, 0.25], [466.16, 0.25], [440.00, 0.5], [349.23, 0.5],
-      [392.00, 0.5],  [349.23, 1.5],
-    ];
-
-    // Simple chord pad under melody
-    const chords = [
-      [261.63, 329.63, 392.00],
-      [349.23, 440.00, 523.25],
-      [392.00, 493.88, 587.33],
-    ];
+    const notes = [261.63,329.63,392,523.25,392,329.63,261.63];
+    const durations = [0.3,0.3,0.3,0.6,0.3,0.3,0.6];
 
     let time = ctx.currentTime + 0.3;
 
-    // Chord pads (soft, background)
-    chords.forEach((chord, ci) => {
-      chord.forEach(freq => {
-        const osc  = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0, time + ci * 2.4);
-        gain.gain.linearRampToValueAtTime(0.04, time + ci * 2.4 + 0.1);
-        gain.gain.linearRampToValueAtTime(0, time + ci * 2.4 + 2.3);
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.start(time + ci * 2.4);
-        osc.stop(time + ci * 2.4 + 2.4);
-      });
-    });
-
-    // Melody (two passes)
-    for (let pass = 0; pass < 2; pass++) {
-      let t = time + (pass === 1 ? melody.reduce((a, n) => a + n[1], 0) + 0.5 : 0);
-      melody.forEach(([freq, dur]) => {
-        const osc  = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0, t);
-        gain.gain.linearRampToValueAtTime(0.12, t + 0.03);
-        gain.gain.linearRampToValueAtTime(0.08, t + dur * 0.7);
-        gain.gain.linearRampToValueAtTime(0, t + dur - 0.03);
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.start(t); osc.stop(t + dur);
-        t += dur;
-      });
-    }
-
-    // Little bell sparkle on top
-    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
-      const osc  = ctx.createOscillator();
+    notes.forEach((freq,i)=>{
+      const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sine';
+
+      osc.type = 'triangle';
       osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0, time + i * 0.12);
-      gain.gain.linearRampToValueAtTime(0.07, time + i * 0.12 + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, time + i * 0.12 + 0.6);
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.start(time + i * 0.12);
-      osc.stop(time + i * 0.12 + 0.65);
+
+      gain.gain.setValueAtTime(0, time);
+      gain.gain.linearRampToValueAtTime(0.1, time + 0.03);
+      gain.gain.linearRampToValueAtTime(0, time + durations[i]);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(time);
+      osc.stop(time + durations[i]);
+
+      time += durations[i];
     });
 
-  } catch (e) { /* silent fail */ }
+  } catch {}
 }
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+
   initStars();
 
-  // Confetti burst on load
+  // 🎉 confetti awal
   setTimeout(() => launchConfetti(180), 200);
 
-  // Reveal items
+  // 👀 reveal scroll
   setupReveal();
 
-  // Music after short delay
+  // 🎵 musik
   setTimeout(playBirthdayMusic, 500);
+
+  // 📜 typewriter (delay biar cinematic)
+  setTimeout(startTyping, 900);
+
 });
 
-// expose for button
+// expose
 window.launchConfetti = () => launchConfetti(160);
