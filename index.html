@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Kak Miranda! 🏴‍☠️</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+</head>
+<body class="main-page">
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Ocean -->
+  <div class="ocean">
+    <div class="wave"></div>
+    <div class="wave wave2"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="main-wrapper">
+
+    <div class="top-banner">
+      <span class="jolly-roger">☠</span>
+      <h1 class="main-title">Happy Birthday</h1>
+      <h2 class="name-title">Kak Miranda!</h2>
+      <p class="subtitle">— Nakama terbaik di lautan Grand Line —</p>
+    </div>
+
+    <!-- Cake Section -->
+    <div class="cake-section">
+      <p class="hint-text" id="hintText">🕯️ Klik kue 3x untuk meniup lilin...</p>
+
+      <div class="cake-wrap" id="cakeWrap" onclick="blowCandle()">
+        <div class="cake-glow" id="cakeGlow"></div>
+
+        <!-- Candles -->
+        <div class="candles" id="candles">
+          <div class="candle" id="c1">
+            <div class="flame" id="f1">
+              <div class="flame-inner"></div>
+            </div>
+            <div class="candle-body c-red"></div>
+            <div class="candle-drip"></div>
+          </div>
+          <div class="candle" id="c2">
+            <div class="flame" id="f2">
+              <div class="flame-inner"></div>
+            </div>
+            <div class="candle-body c-gold"></div>
+            <div class="candle-drip"></div>
+          </div>
+          <div class="candle" id="c3">
+            <div class="flame" id="f3">
+              <div class="flame-inner"></div>
+            </div>
+            <div class="candle-body c-navy"></div>
+            <div class="candle-drip"></div>
+          </div>
+        </div>
+
+        <!-- Cake layers -->
+        <div class="cake">
+          <div class="cake-top">
+            <div class="cake-deco">🍓 ⚓ 🍓</div>
+          </div>
+          <div class="cake-mid">
+            <span class="cake-text">Miranda</span>
+          </div>
+          <div class="cake-bot">
+            <div class="cake-stripe"></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <!-- Click indicator rings -->
+      <div class="click-rings" id="clickRings">
+        <div class="ring r1" id="ring1"></div>
+        <div class="ring r2" id="ring2"></div>
+        <div class="ring r3" id="ring3"></div>
+      </div>
+    </div>
+
+    <!-- Open message button -->
+    <div class="open-btn-wrap" id="openBtnWrap">
+      <div class="btn-sparkles">✦ ✦ ✦</div>
+      <a href="yes.html" class="btn-open">
+        💌 Buka Pesannya 💌
+      </a>
+      <div class="btn-sparkles">✦ ✦ ✦</div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
